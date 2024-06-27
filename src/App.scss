@@ -1,5 +1,5 @@
 html {
-  scroll-snap-type: y proximity;
+  scroll-snap-type: y unset;
   scroll-behavior: smooth;
 }
 
@@ -8,6 +8,10 @@ html {
   margin: 0;
   box-sizing: border-box;
   background-color: #f5f5f5;
+}
+
+.divider{
+  max-width: 90%;
 }
 
 .home-page{
@@ -40,12 +44,40 @@ html {
 
 .services{
   z-index: -1;
-  height: calc(100vh);
+  height: calc(100vh + 50px);
   scroll-snap-align: center;
   background-color: #f5f5f5;
+
+  .services-text{
+    font-family: "Red Hat Display", sans-serif;
+  }
+
+  .img1{
+    filter: grayscale(100%);
+  }
+
+  .img1:hover{
+    filter: none;
+  }
+
+  .img2{
+    filter: grayscale(100%);
+  }
+
+  .img2:hover{
+    filter: grayscale(25%);
+  }
+
+  .img3{
+    filter: grayscale(100%);
+  }
+
+  .img3:hover{
+    filter: none;
+  }
 }
 
 .contact-details{
-  height: calc(100vh);
+  height: calc(100vh + 50px);
   scroll-snap-align: center;
 }

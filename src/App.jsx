@@ -1,6 +1,7 @@
 import './App.scss'
+import { useRef } from 'react';
 import { Navbar } from './components/Navbar'
-import { motion } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
 
 const imgEnter = {
   before: {
@@ -48,6 +49,10 @@ const rightTextEnter = {
 };
 
 function App() {
+
+  const ref = useRef();
+  const isInView = useInView(ref, {margin:'-100px'});
+
   return (
     <>
       <Navbar/>
@@ -88,8 +93,63 @@ function App() {
           </motion.div>
         </div>
       </section>
-      <section className='services'>
 
+      <section className='services items-center justify-center flex flex-col w-full'>
+        <motion.h1
+          variants={imgEnter}
+          ref={ref}
+          initial='before'
+          animate={isInView && 'after'}
+          className='services-text text-6xl pb-10'
+        >
+          S E R V I C E S
+        </motion.h1>
+        <div className='container items-center justify-center flex w-full gap-16'>
+          <motion.div
+            variants={imgEnter}
+            ref={ref}
+            initial='before'
+            animate={isInView && 'after'}
+            className="max-w-sm bg-white border border-gray-200 rounded-lg shadow"
+          >
+        
+            <img className="img1 rounded-t-lg" src="./src/assets/styling.jpeg" alt="styling" />
+        
+            <div className="p-5">
+                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">Haircut and Styling</h5>
+                <p className="mb-3 font-normal text-gray-700">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+            </div>
+          </motion.div>
+          <motion.div
+            variants={imgEnter}
+            ref={ref}
+            initial='before'
+            animate={isInView && 'after'}
+            className="max-w-sm bg-white border border-gray-200 rounded-lg shadow">
+        
+            <img className="img2 rounded-t-lg" src="./src/assets/manicure_n_pedicure.jpeg" alt="manicure and pedicure" />
+        
+            <div className="p-5">
+                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">Manicure and Pedicure</h5>
+                <p className="mb-3 font-normal text-gray-700">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+            </div>
+          </motion.div>
+          <motion.div
+            variants={imgEnter}
+            ref={ref}
+            initial='before'
+            animate={isInView && 'after'}
+            className="max-w-sm bg-white border border-gray-200 rounded-lg shadow"
+          >
+        
+            <img className="img3 rounded-t-lg" src="./src/assets/facial_treatment.jpeg" alt="facial-treatment" />
+        
+            <div className="p-5">
+                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">Facial Treatments</h5>
+                <p className="mb-3 font-normal text-gray-700">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+            </div>
+          </motion.div>
+        </div>
       </section>
       <section className='contact-details'>
         
