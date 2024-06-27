@@ -1,0 +1,22 @@
+html {
+  scroll-snap-type: y proximity;
+  scroll-behavior: smooth;
+}
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.home-page{
+  height: calc(100vh - 100px);
+}
+
+.services{
+  height: calc(100vh - 100px);
+}
+
+.contact-details{
+  height: calc(100vh - 100px);
+}

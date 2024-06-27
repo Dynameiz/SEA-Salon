@@ -1,10 +1,19 @@
-import { useState } from 'react'
 import './App.scss'
+import { Navbar } from './components/Navbar'
 
 function App() {
   return (
     <>
-      <h1 className="text-3xl font-bold underline">Hello World!</h1>
+      <Navbar/>
+      <section className='home-page'>
+
+      </section>
+      <section className='services'>
+
+      </section>
+      <section className='contact-details'>
+        
+      </section>
     </>
   )
 }
