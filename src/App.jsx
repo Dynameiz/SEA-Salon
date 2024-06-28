@@ -60,7 +60,7 @@ function App() {
   const serviceIsInView = useInView(servicesRef, {margin:'-100px'});
 
   const reviewRef = useRef();
-  const reviewIsInView = useInView(reviewRef, {margin:'-100px'});
+  const reviewIsInView = useInView(reviewRef, {margin:'0px'});
 
   return (
     <>
@@ -170,7 +170,7 @@ function App() {
       </Element>
 
       <Element name='review'>
-        <section className='review flex flex-col items-center justify-center'>
+        <section className='review flex flex-col items-center justify-start pt-24'>
           <motion.h1
             variants={imgEnter}
             ref={reviewRef}
@@ -231,11 +231,15 @@ function App() {
             </div>
           </div>
         </section>
+        <footer className='bg-black h-[24vh] w-full self-baseline bottom-0'>
+          <div className=''>
+            <div className=''>
+
+            </div>
+          </div>
+        </footer>
       </Element>
 
-      <footer className='bg-black h-48'>
-        
-      </footer>
     </>
   )
 }

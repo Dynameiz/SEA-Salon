@@ -1,8 +1,29 @@
-# React + Vite
+# SEA Salon
+Welcome to SEA Salon's official website! Discover our range of services designed to bring out the best in you. Our motto, "Beauty and Elegance Redefined," reflects our commitment to providing top-notch beauty treatments in a relaxing and luxurious environment.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Services
+- Haircut and Styling
+- Manicure and Pedicure
+- Facial Treatments
 
-Currently, two official plugins are available:
+<hr>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Prerequisites
+In order to play around with this website by yourself, you could follow these steps:
+
+1. Clone the Repository
+```
+git clone https://github.com/Dynameiz/SEA-Salon.git
+cd SEA-Salon
+```
+
+2. Install Dependencies
+```
+npm install
+```
+
+3. Run the Development Server
+```
+npm start
+```
+<sub>Notes: Your website should now be running on http://localhost:5173</sub>
