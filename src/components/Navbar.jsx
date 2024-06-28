@@ -7,7 +7,7 @@ export const Navbar = () => {
 
     return (
         <>
-            <nav className='navbar flex items-center justify-between fixed w-full z-10 mr-4 ml-4 sele selection:none selection:none'>
+            <nav className='navbar flex items-center justify-between fixed w-full z-10 mr-4 ml-4 sele selection:bg-black selection:text-neutral-100'>
                 <div className="flex flex-shrink-0 items-center pl-20 bg-transparent">
                     <motion.button
                         whileHover={{scale: 1.1}}

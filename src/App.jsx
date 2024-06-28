@@ -1,11 +1,14 @@
 import './App.scss'
-import { useState, useRef } from 'react';
+import { useState, useRef, useContext } from 'react';
 import { Navbar } from './components/Navbar'
-import { motion, useInView } from 'framer-motion'
+import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { Element } from 'react-scroll';
 import { FaStar } from 'react-icons/fa6';
+import { ReservationForm } from './components/ReservationForm';
+import { ToggleComponent } from './context/ToggleComponent';
+import { Link } from 'react-scroll'
 
-const imgEnter = {
+const enterBottom = {
   before: {
       y: 150,
       opacity: 0,
@@ -20,7 +23,7 @@ const imgEnter = {
   },
 };
 
-const leftTextEnter = {
+const enterLeft = {
   before: {
     x: -100,
     opacity: 0,
@@ -35,7 +38,7 @@ const leftTextEnter = {
   },
 };
 
-const rightTextEnter = {
+const enterRight = {
   before: {
     x: 100,
     opacity: 0,
@@ -52,6 +55,10 @@ const rightTextEnter = {
 
 function App() {
 
+  const { showReservation, setShowReservation } = useContext(ToggleComponent);
+
+  // const [showReservation, setShowReservation] = useState(false);
+
   const [highlight, setHighlight] = useState(0);
   const [starReview, setStarReview] = useState(0);
   const [comment, setComment] = useState("");
@@ -65,11 +72,13 @@ function App() {
   return (
     <>
       <Navbar/>
+      <AnimatePresence>{showReservation? <ReservationForm/> : null}</AnimatePresence>
+      
       <Element name='homepage'>
         <section className='home-page items-center justify-center flex w-full selection:bg-black selection:text-neutral-100'>
           <div className="absolute flex items-center justify-center gap-16 w-full">
             <motion.div
-              variants={leftTextEnter}
+              variants={enterLeft}
               initial='before'
               animate='after'
               className='left-text flex flex-col justify-center items-center unna-regular'
@@ -77,7 +86,7 @@ function App() {
               <h1 className='text-6xl'>SEA Salon</h1>
             </motion.div>
             <motion.div
-              variants={imgEnter}
+              variants={enterBottom}
               initial='before'
               animate='after'
               className='image flex flex-col justify-center items-center'
@@ -85,7 +94,7 @@ function App() {
               <img src="./src/assets/model.png" alt="model" className='model' draggable='false'/>
             </motion.div>
             <motion.div
-              variants={rightTextEnter}
+              variants={enterRight}
               initial='before'
               animate='after'
               className='right-text flex flex-col justify-center items-center unna-regular'
@@ -95,6 +104,9 @@ function App() {
                 <h1 className='text-6xl pb-6'>Redefined</h1>
                 <motion.button
                   whileTap={{scale: 0.9}}
+                  onClick={() => {
+                    setShowReservation(!showReservation);
+                  }}
                   className='btn text-black p-2 text-2xl rounded-lg'
                 >
                   Reservation
@@ -111,17 +123,17 @@ function App() {
 
         <section className='services items-center justify-center flex flex-col w-full'>
           <motion.h1
-            variants={imgEnter}
+            variants={enterBottom}
             ref={servicesRef}
             initial='before'
             animate={serviceIsInView && 'after'}
-            className='services-text text-5xl pb-5'
+            className='services-text text-5xl pb-5 selection:bg-black selection:text-neutral-100'
           >
             S E R V I C E S
           </motion.h1>
           <div className='container items-center justify-center flex w-full gap-16'>
             <motion.div
-              variants={imgEnter}
+              variants={enterBottom}
               ref={servicesRef}
               initial='before'
               animate={serviceIsInView && 'after'}
@@ -136,7 +148,7 @@ function App() {
               </div>
             </motion.div>
             <motion.div
-              variants={imgEnter}
+              variants={enterBottom}
               ref={servicesRef}
               initial='before'
               animate={serviceIsInView && 'after'}
@@ -150,7 +162,7 @@ function App() {
               </div>
             </motion.div>
             <motion.div
-              variants={imgEnter}
+              variants={enterBottom}
               ref={servicesRef}
               initial='before'
               animate={serviceIsInView && 'after'}
@@ -172,7 +184,7 @@ function App() {
       <Element name='review'>
         <section className='review flex flex-col items-center justify-start pt-24'>
           <motion.h1
-            variants={imgEnter}
+            variants={enterBottom}
             ref={reviewRef}
             initial='before'
             animate={reviewIsInView && 'after'}
@@ -180,12 +192,12 @@ function App() {
           >
             R E V I E W S
           </motion.h1>
-          <div className='flex flex-row justify-center items-center gap-32'>
+          <div className='bg-transparent flex flex-row justify-center items-center gap-32'>
 
-            <div className='review-container flex flex-col justify-center items-center'>
+            <div className='bg-transparent review-container flex flex-col justify-center items-center'>
 
               <motion.h2
-                variants={imgEnter}
+                variants={enterBottom}
                 ref={reviewRef}
                 initial='before'
                 animate={reviewIsInView && 'after'}
@@ -195,10 +207,10 @@ function App() {
               </motion.h2>
               <motion.div
                 ref={reviewRef}
-                variants={imgEnter}
+                variants={enterBottom}
                 initial='before'
                 animate={reviewIsInView && 'after'}
-                className='flex flex-row justify-center gap-8 pb-8'
+                className='bg-transparent flex flex-row justify-center gap-8 pb-8'
               >
                 <button onClick={() => setStarReview(1)} onMouseEnter={() => setHighlight(1)} onMouseLeave={() => setHighlight(0) && setStarReview(0)}> <FaStar color={`${highlight > 0 || starReview > 0 ? 'black' : 'gray'}`} size={64}/> </button>
                 <button onClick={() => setStarReview(2)} onMouseEnter={() => setHighlight(2)} onMouseLeave={() => setHighlight(0) && setStarReview(0)}> <FaStar color={`${highlight > 1 || starReview > 1 ? 'black' : 'gray'}`} size={64}/> </button>
@@ -208,18 +220,18 @@ function App() {
               </motion.div>  
             </div>
 
-            <div className='flex flex-col justify-center items-end gap-y-2'>
+            <div className='bg-transparent flex flex-col justify-center items-end gap-y-2'>
               <motion.textarea
                 value={comment}
                 onChange={(e) => {setComment(e.target.value)}}
                 placeholder='Comments'
-                variants={imgEnter}
+                variants={enterBottom}
                 ref={reviewRef}
                 initial="before"
                 animate={reviewIsInView && "after"}
                 className='rounded-md min-w-[60vh] min-h-[20vh] p-3 border-[2px]' />
               <motion.button
-                variants={imgEnter}
+                variants={enterBottom}
                 ref={reviewRef}
                 initial="before"
                 animate={reviewIsInView && "after"}
@@ -231,13 +243,40 @@ function App() {
             </div>
           </div>
         </section>
-        <footer className='bg-black h-[24vh] w-full self-baseline bottom-0'>
-          <div className=''>
-            <div className=''>
+        <section className='bg-black h-[24vh] w-full flex flex-row justify-center self-center'>
+          <div className='bg-transparent flex flex-col justify-center self-center gap-3'>
+            <div className='flex flex-row justify-center items-center bg-transparent w-full gap-12'>
+            
+              <div className="bottom-logo flex flex-auto justify-center items-center bg-transparent">
+                <motion.button
+                    whileHover={{scale: 1.1}}
+                    whileTap={{scale: 1}}
+                    transition={{type:"spring", stiffness: 400, damping: 17}}
+                    className='bg-transparent'
+                >
+                    <Link to='homepage' smooth={true} duration={500} className='flex flex-row items-center bg-transparent text-3xl text-neutral-100'>
+                        <img src="../../src/assets/sea_salon_logo_white.svg" alt="sea-salon-logo" className='logo bg-transparent' draggable='false'/>
+                        SEA Salon
+                    </Link>
+                </motion.button>
+              </div>
 
+              <div className='bg-transparent flex flex-col justify-center self-center gap-2'>
+                <h3 className='bg-transparent text-2xl text-neutral-100'>Contacts</h3>
+                <p className='bg-transparent text-neutral-100'>Thomas - 08123456789</p>
+                <p className='bg-transparent text-neutral-100 '>Sekar - 08164829372</p>
+              </div>
+              <div className='bg-transparent flex flex-col justify-center self-center gap-2'>
+                <h3 className='bg-transparent text-2xl text-neutral-100'>Working Hours</h3>
+                <p className='bg-transparent text-neutral-100'>Monday - Friday: 9:00 AM - 8:00 PM</p>
+                <p className='bg-transparent text-neutral-100'>Saturday - Sunday: 10:00 AM - 6:00 PM</p>
+              </div>
+            </div>
+            <div className='bg-transparent flex flex-row justify-center self-center'>
+              <p className='bg-transparent text-gray-300'>&copy; 2024 SEA Salon. All rights reserved.</p>
             </div>
           </div>
-        </footer>
+        </section>
       </Element>
 
     </>
