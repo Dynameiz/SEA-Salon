@@ -12,9 +12,9 @@ export const ReservationForm = () => {
             animate={{scale:1}}
             exit={{opacity:0, scale:0.5}}
             transition={{type: 'spring'}}
-            className="fixed bg-transparent w-full h-[100vh] z-10 flex flex-col items-center justify-center overflow-hidden"
+            className="fixed bg-transparent w-full h-[100vh] flex flex-col items-center justify-center overflow-hidden z-10"
         >
-            <div className="reservation-container min-w-[60vh] min-h-[70vh] bg-slate-100 flex flex-col items-center justify-center opacity-95 rounded-md border-black border-[4]">
+            <div className="reservation-container z-10 min-w-[60vh] min-h-[70vh] bg-slate-100 flex flex-col items-center justify-center opacity-95 rounded-md border-black border-[4]">
                 <h1 className="bg-transparent text-4xl pb-10">Reservation Form</h1>
 
                 <div className="flex flex-col items-center justify-center gap-4 w-full">
@@ -40,9 +40,12 @@ export const ReservationForm = () => {
                     Cancel
                   </button>
                 </div>
-
+                
             </div>
+            <div className="w-full h-[100vh] fixed z-[5] bg-transparent" onClick={() => setShowReservation(!showReservation)}>
+           </div>
         </motion.div>
+        
     </>
   );
 }

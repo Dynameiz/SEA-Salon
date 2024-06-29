@@ -1,9 +1,11 @@
-import React from 'react'
+import { useContext } from 'react'
+import { ToggleComponent } from '../context/ToggleComponent'
 import { motion } from 'framer-motion'
 import { FaUserCircle } from 'react-icons/fa'
 import { Link } from 'react-scroll'
 
 export const Navbar = () => {
+    const { showRegister, setShowRegister } = useContext(ToggleComponent);
 
     return (
         <>
@@ -55,6 +57,9 @@ export const Navbar = () => {
                         whileTap={{opacity: 1, scale: 1}}
                         transition={{type:"spring", stiffness: 400, damping: 17}}
                         className='bg-transparent'
+                        onClick={() => {
+                            setShowRegister(!showRegister);
+                        }}
                     >
                         <FaUserCircle size={32}/>
                     </motion.button>

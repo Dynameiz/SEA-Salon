@@ -4,6 +4,7 @@ import { Navbar } from './components/Navbar'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { Element } from 'react-scroll';
 import { FaStar } from 'react-icons/fa6';
+import { RegisterForm } from './components/RegisterForm';
 import { ReservationForm } from './components/ReservationForm';
 import { ToggleComponent } from './context/ToggleComponent';
 import { Link } from 'react-scroll'
@@ -55,9 +56,7 @@ const enterRight = {
 
 function App() {
 
-  const { showReservation, setShowReservation } = useContext(ToggleComponent);
-
-  // const [showReservation, setShowReservation] = useState(false);
+  const { showReservation, setShowReservation, showRegister, showLogin } = useContext(ToggleComponent);
 
   const [highlight, setHighlight] = useState(0);
   const [starReview, setStarReview] = useState(0);
@@ -73,6 +72,7 @@ function App() {
     <>
       <Navbar/>
       <AnimatePresence>{showReservation? <ReservationForm/> : null}</AnimatePresence>
+      <AnimatePresence>{showRegister || showLogin? <RegisterForm/> : null}</AnimatePresence>
       
       <Element name='homepage'>
         <section className='home-page items-center justify-center flex w-full selection:bg-black selection:text-neutral-100'>
@@ -244,13 +244,12 @@ function App() {
           </div>
         </section>
         <section className='bg-black h-[24vh] w-full flex flex-row justify-center self-center'>
-          <div className='bg-transparent flex flex-col justify-center self-center gap-3'>
+          <div className='bg-transparent flex flex-col justify-center self-center gap-3 w-full'>
             <div className='flex flex-row justify-center items-center bg-transparent w-full gap-12'>
-            
-              <div className="bottom-logo flex flex-auto justify-center items-center bg-transparent">
+              <div className=" bottom-logo flex justify-center items-center bg-transparent">
                 <motion.button
-                    whileHover={{scale: 1.1}}
-                    whileTap={{scale: 1}}
+                    whileHover={{scale: 1}}
+                    whileTap={{scale: 0.9}}
                     transition={{type:"spring", stiffness: 400, damping: 17}}
                     className='bg-transparent'
                 >
@@ -266,6 +265,7 @@ function App() {
                 <p className='bg-transparent text-neutral-100'>Thomas - 08123456789</p>
                 <p className='bg-transparent text-neutral-100 '>Sekar - 08164829372</p>
               </div>
+
               <div className='bg-transparent flex flex-col justify-center self-center gap-2'>
                 <h3 className='bg-transparent text-2xl text-neutral-100'>Working Hours</h3>
                 <p className='bg-transparent text-neutral-100'>Monday - Friday: 9:00 AM - 8:00 PM</p>
