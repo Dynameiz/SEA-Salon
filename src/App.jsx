@@ -8,6 +8,7 @@ import { RegisterForm } from './components/RegisterForm';
 import { ReservationForm } from './components/ReservationForm';
 import { ToggleComponent } from './context/ToggleComponent';
 import { Link } from 'react-scroll';
+import { AuthContext } from './context/AuthContext';
 
 import model_photo from '../public/model.png';
 import logo_white from '../public/sea_salon_logo_white.svg';
@@ -63,16 +64,35 @@ const enterRight = {
 function App() {
 
   const { showReservation, setShowReservation, showRegister, showLogin } = useContext(ToggleComponent);
+  const { currentUser } = useContext(AuthContext);
 
   const [highlight, setHighlight] = useState(0);
   const [starReview, setStarReview] = useState(0);
-  const [comment, setComment] = useState("");
+  const [comment, setComment] = useState('');
 
   const servicesRef = useRef();
   const serviceIsInView = useInView(servicesRef, {margin:'-100px'});
 
   const reviewRef = useRef();
   const reviewIsInView = useInView(reviewRef, {margin:'0px'});
+
+  const handleSubmit = () => {
+    if(starReview < 1 && comment === ''){
+      alert('Please add a rating and comments');
+      return;
+    }
+    if(starReview < 1){
+      alert('Please add a rating');
+      return;
+    }
+    if(comment === ''){
+      alert('Please give us some feedback');
+      return;
+    }
+    setStarReview(0);
+    setHighlight(0);
+    setComment('');
+  }
 
   return (
     <>
@@ -198,10 +218,8 @@ function App() {
           >
             R E V I E W S
           </motion.h1>
-          <div className='bg-transparent flex flex-row justify-center items-center gap-32'>
-
+          <div className='w-full bg-transparent flex flex-row justify-center items-center gap-32'>
             <div className='bg-transparent review-container flex flex-col justify-center items-center'>
-
               <motion.h2
                 variants={enterBottom}
                 ref={reviewRef}
@@ -243,6 +261,9 @@ function App() {
                 animate={reviewIsInView && "after"}
                 whileTap={{scale: 0.9}}
                 className='review-text btn text-black p-2 text-md rounded-lg'
+                onClick={() => {
+                  handleSubmit();
+                }}
               >
                 Submit
               </motion.button>
