@@ -36,9 +36,6 @@ export const ReservationForm = () => {
                   <button type="button" class="py-3 px-4 inline-flex items-center justify-center w-[80%] gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-gray-800 text-white hover:bg-gray-900 disabled:opacity-50 disabled:pointer-events-none" onClick={() => setShowReservation(!showReservation)}>
                     Submit
                   </button>
-                  <button type="button" class="py-3 px-4 inline-flex items-center justify-center w-[80%] gap-x-2 text-sm font-semibold rounded-lg border border-gray-800 text-gray-800 hover:border-gray-500 hover:text-gray-500 disabled:opacity-50 disabled:pointer-events-none" onClick={() => setShowReservation(!showReservation)}>
-                    Cancel
-                  </button>
                 </div>
                 
             </div>

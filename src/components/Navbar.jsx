@@ -6,6 +6,8 @@ import { FaUserCircle } from 'react-icons/fa'
 import { Link } from 'react-scroll'
 import { auth } from '../firebase_sdk'
 
+import logo from '../../public/sea_salon_logo_black.svg'
+
 const enterTop = {
     before: {
         y: -25,
@@ -40,7 +42,7 @@ export const Navbar = () => {
                         
                     >
                         <Link to='homepage' smooth={true} duration={500} className='flex flex-row items-center bg-transparent text-3xl'>
-                            <img src="../../src/assets/sea_salon_logo_black.svg" alt="sea-salon-logo" className='logo bg-transparent' draggable='false'/>
+                            <img src={logo} alt="sea-salon-logo" className='logo bg-transparent' draggable='false'/>
                             SEA Salon
                         </Link>
                     </motion.button>

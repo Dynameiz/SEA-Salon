@@ -7,7 +7,13 @@ import { FaStar } from 'react-icons/fa6';
 import { RegisterForm } from './components/RegisterForm';
 import { ReservationForm } from './components/ReservationForm';
 import { ToggleComponent } from './context/ToggleComponent';
-import { Link } from 'react-scroll'
+import { Link } from 'react-scroll';
+
+import model_photo from '../public/model.png';
+import logo_white from '../public/sea_salon_logo_white.svg';
+import haircut_img from '../public/styling.jpeg';
+import maincure_img from '../public/manicure_n_pedicure.jpeg';
+import facial_img from '../public/facial_treatment.jpeg';
 
 const enterBottom = {
   before: {
@@ -91,7 +97,7 @@ function App() {
               animate='after'
               className='image flex flex-col justify-center items-center'
             >
-              <img src="./src/assets/model.png" alt="model" className='model' draggable='false'/>
+              <img src={model_photo} alt="model" className='model' draggable='false'/>
             </motion.div>
             <motion.div
               variants={enterRight}
@@ -140,7 +146,7 @@ function App() {
               className="max-w-xs bg-white border border-gray-200 rounded-lg shadow"
             >
           
-              <img className="img1 rounded-t-lg" src="./src/assets/styling.jpeg" alt="styling" draggable='false' />
+              <img className="img1 rounded-t-lg" src={haircut_img} alt="styling" draggable='false' />
           
               <div className="p-5">
                   <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">Haircut and Styling</h5>
@@ -154,7 +160,7 @@ function App() {
               animate={serviceIsInView && 'after'}
               className="max-w-xs bg-white border border-gray-200 rounded-lg shadow">
           
-              <img className="img2 rounded-t-lg" src="./src/assets/manicure_n_pedicure.jpeg" alt="manicure and pedicure" draggable='false'/>
+              <img className="img2 rounded-t-lg" src={maincure_img} alt="manicure and pedicure" draggable='false'/>
           
               <div className="p-5">
                   <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">Manicure and Pedicure</h5>
@@ -169,7 +175,7 @@ function App() {
               className="max-w-xs bg-white border border-gray-200 rounded-lg shadow"
             >
           
-              <img className="img3 rounded-t-lg" src="./src/assets/facial_treatment.jpeg" alt="facial-treatment" draggable='false'/>
+              <img className="img3 rounded-t-lg" src={facial_img} alt="facial-treatment" draggable='false'/>
           
               <div className="p-5">
                   <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">Facial Treatments</h5>
@@ -254,7 +260,7 @@ function App() {
                     className='bg-transparent'
                 >
                     <Link to='homepage' smooth={true} duration={500} className='flex flex-row items-center bg-transparent text-3xl text-neutral-100'>
-                        <img src="../../src/assets/sea_salon_logo_white.svg" alt="sea-salon-logo" className='logo bg-transparent' draggable='false'/>
+                        <img src={logo_white} alt="sea-salon-logo" className='logo bg-transparent' draggable='false'/>
                         SEA Salon
                     </Link>
                 </motion.button>
