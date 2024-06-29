@@ -63,7 +63,7 @@ const enterRight = {
 
 function App() {
 
-  const { showReservation, setShowReservation, showRegister, showLogin } = useContext(ToggleComponent);
+  const { showReservation, setShowReservation, setShowRegister, showRegister, showLogin } = useContext(ToggleComponent);
   const { currentUser } = useContext(AuthContext);
 
   const [highlight, setHighlight] = useState(0);
@@ -131,7 +131,7 @@ function App() {
                 <motion.button
                   whileTap={{scale: 0.9}}
                   onClick={() => {
-                    setShowReservation(!showReservation);
+                    (!currentUser) ? setShowRegister(true) : setShowReservation(!showReservation);
                   }}
                   className='btn text-black p-2 text-2xl rounded-lg'
                 >
@@ -262,7 +262,7 @@ function App() {
                 whileTap={{scale: 0.9}}
                 className='review-text btn text-black p-2 text-md rounded-lg'
                 onClick={() => {
-                  handleSubmit();
+                  (!currentUser)? setShowRegister(true) : handleSubmit();
                 }}
               >
                 Submit
