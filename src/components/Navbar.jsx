@@ -1,16 +1,38 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { ToggleComponent } from '../context/ToggleComponent'
-import { motion } from 'framer-motion'
+import { AuthContext } from '../context/AuthContext'
+import { AnimatePresence, motion } from 'framer-motion'
 import { FaUserCircle } from 'react-icons/fa'
 import { Link } from 'react-scroll'
+import { auth } from '../firebase_sdk'
+
+const enterTop = {
+    before: {
+        y: -25,
+        opacity: 0,
+    },
+    after: {
+        y: 0,
+        opacity: 1,
+        transition: {
+            duration: 0.3,
+            staggerChildren: 0.1,
+        }
+    },
+  };
 
 export const Navbar = () => {
     const { showRegister, setShowRegister } = useContext(ToggleComponent);
+    const { currentUser } = useContext(AuthContext);
+    const [ showName, setShowName ] = useState(false);
+    const [ showLogOut, setShowLogOut ] = useState(false);
+
+
 
     return (
         <>
-            <nav className='navbar flex items-center justify-between fixed w-full z-10 mr-4 ml-4 sele selection:bg-black selection:text-neutral-100'>
-                <div className="flex flex-shrink-0 items-center pl-20 bg-transparent">
+            <nav className='navbar flex items-center justify-between fixed w-full z-10 mr-4 ml-4 sele selection:bg-black selection:text-neutral-100 overflow-hidden'>
+                <div className="flex flex-shrink-0 items-center pl-20 bg-transparent overflow-hidden">
                     <motion.button
                         whileHover={{scale: 1.1}}
                         whileTap={{scale: 1}}
@@ -29,7 +51,7 @@ export const Navbar = () => {
                         whileTap={{scale: 1}}
                         transition={{type:"spring", stiffness: 400, damping: 17}}
                     >
-                        <Link to='homepage' smooth={true} duration={500} className='bg-transparent'>
+                        <Link to='homepage' smooth={true} duration={500} className='bg-transparent overflow-hidden'>
                         H O M E
                         </Link>
                     </motion.button>
@@ -38,7 +60,7 @@ export const Navbar = () => {
                         whileTap={{scale: 1}}
                         transition={{type:"spring", stiffness: 400, damping: 17}}
                     >
-                        <Link to='services' smooth={true} duration={500} offset={-40} className='bg-transparent'>
+                        <Link to='services' smooth={true} duration={500} offset={-40} className='bg-transparent overflow-hidden'>
                         S E R V I C E S
                         </Link>
                     </motion.button>
@@ -47,24 +69,55 @@ export const Navbar = () => {
                         whileTap={{scale: 1}}
                         transition={{type:"spring", stiffness: 400, damping: 17}}
                     >
-                        <Link to='review' smooth={true} duration={500} className='bg-transparent'>
+                        <Link to='review' smooth={true} duration={500} className='bg-transparent overflow-hidden'>
                         R E V I E W
                         </Link>
                     </motion.button>
-                    <motion.button
-                        initial={{opacity: 0.8}}
-                        whileHover={{opacity:1, scale: 1.1}}
-                        whileTap={{opacity: 1, scale: 1}}
-                        transition={{type:"spring", stiffness: 400, damping: 17}}
-                        className='bg-transparent'
-                        onClick={() => {
-                            setShowRegister(!showRegister);
-                        }}
-                    >
-                        <FaUserCircle size={32}/>
-                    </motion.button>
+                    <div className='flex flex-col justify-center items-center'>
+                        <motion.button
+                            initial={{opacity: 0.8}}
+                            whileHover={{opacity:1, scale: 1.1}}
+                            whileTap={{opacity: 1, scale: 1}}
+                            transition={{type:"spring", stiffness: 400, damping: 17}}
+                            className='bg-transparent z-10'
+                            onHoverStart={() => {setShowName(false)}}
+                            onHoverEnd={() => {setShowName(true)}}
+                            onClick={() => {
+                                (!currentUser) ? setShowRegister(!showRegister) : setShowLogOut(!showLogOut);
+                            }}
+                        >
+                            <FaUserCircle size={32}/>
+                        </motion.button>
+                        <AnimatePresence>{showLogOut ? 
+                            <motion.div
+                                variants={enterTop}
+                                initial='before'
+                                animate='after'
+                                exit={{ 
+                                    y: -25, 
+                                    opacity: 0,  
+                                    transition: {
+                                        duration: 0.3,
+                                        staggerChildren: 0.1,
+                                }}}
+                                whileTap={{ scale:0.9 }}
+                                className='fixed bg-transparent z-[8] flex justify-center items-center pt-28'
+                            >
+                                <button className='bg-transparent border-[2px] px-3 py-2 rounded-md' onClick={async() => {
+                                    await auth.signOut();
+                                    setShowLogOut(false);
+                                }}>
+                                    Sign Out
+                                </button>
+                            </motion.div> 
+                            : null}
+                        </AnimatePresence>
+                    </div>
+                    
                 </div>
             </nav>
+                
+            
         </>
     )
 }

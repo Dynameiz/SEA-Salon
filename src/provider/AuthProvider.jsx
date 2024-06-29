@@ -4,7 +4,9 @@ import { auth } from '../firebase_sdk';
 import { onAuthStateChanged } from "firebase/auth";
 
 export const AuthProvider = ({children}) => {
+    //Active User (for authentication purposes)
     const [currentUser, setCurrentUser] = useState(null);
+    //User Data
     const [userData, setUserData] = useState(null);
 
     useEffect(() => {
