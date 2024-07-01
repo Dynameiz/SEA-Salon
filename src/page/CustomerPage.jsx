@@ -13,6 +13,8 @@ import logo_white from '../../public/sea_salon_logo_white.svg';
 import haircut_img from '../../public/styling.jpeg';
 import maincure_img from '../../public/manicure_n_pedicure.jpeg';
 import facial_img from '../../public/facial_treatment.jpeg';
+import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
+import { db } from '../firebase_sdk';
 
 const enterBottom = {
     before: {
@@ -87,10 +89,56 @@ export const CustomerPage = () => {
         alert('Please give us some feedback');
         return;
       }
+      saveReviews();
       setStarReview(0);
       setHighlight(0);
       setComment('');
     }
+
+    const getPrevReviews = async() =>{
+      try {
+        const getReviewDocs = await getDoc(doc(db, 'user_input', 'reviews'));
+        if(getReviewDocs.exists()){
+          return getReviewDocs.data();
+        }
+        console.log('No Reviews Yet');
+        return null;
+      } catch (error) {
+        console.log(error);
+        return null;
+      }
+    }
+
+    const saveReviews = async() => {
+      try {
+          const prevReviews = await getPrevReviews();
+          console.log(prevReviews);
+          if(prevReviews){
+            const newReview = { reviews:[
+                ...prevReviews.reviews,
+                {
+                  name: userData.name,
+                  rating: starReview,
+                  comment: comment,
+                }
+              ]
+            };
+            await updateDoc(doc(db, 'user_input', 'reviews'), {reviews: newReview.reviews});
+          }
+          else{
+            await setDoc(doc(db, 'user_input', 'reviews'), {
+              reviews : [{
+                name: userData.name,
+                rating: starReview,
+                comment: comment
+              }]
+            })
+          }
+
+      } catch (error) {
+          console.log(error);
+      }
+  }
 
   return (
     <>
