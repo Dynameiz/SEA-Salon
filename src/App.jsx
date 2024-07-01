@@ -299,11 +299,6 @@ function App() {
                 <p className='bg-transparent text-neutral-100 text-center'>Thomas - 08123456789</p>
                 <p className='bg-transparent text-neutral-100  text-center'>Sekar - 08164829372</p>
               </div>
-
-              
-            </div>
-            <div className='bg-transparent flex flex-row justify-between self-center'>
-              
             </div>
           </div>
         </section>
