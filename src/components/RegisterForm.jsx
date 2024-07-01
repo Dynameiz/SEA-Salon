@@ -21,6 +21,8 @@ export const RegisterForm = () => {
     const [ loginEmail, setLoginEmail ] = useState('');
     const [ loginPassword, setLoginPassword] = useState('');
 
+    
+
     const saveUserData = async() => {
         try {
             await setDoc(doc(db, 'users', email), {
@@ -87,6 +89,13 @@ export const RegisterForm = () => {
         }
     } 
 
+    const handleKeyDown = (event) => {
+        if(event.key === 'Enter' && !event.shiftKey){
+            event.preventDefault();
+            (showRegister) ? handleRegister() : handleLogin() ;
+        }
+    };
+
     return (
         <motion.div
             initial={{scale:0.5}}
@@ -105,7 +114,7 @@ export const RegisterForm = () => {
                     <input type="email" className="py-3 px-4 block w-[80%] bg-slate-100 border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
                     <input type="text" className="py-3 px-4 block w-[80%] bg-slate-100 border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" placeholder="Phone Number" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)}/>
                     <input type="password" className="py-3 px-4 block w-[80%] bg-slate-100 border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
-                    <input type="password" className="py-3 px-4 block w-[80%] bg-slate-100 border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}/>
+                    <input type="password" className="py-3 px-4 block w-[80%] bg-slate-100 border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" placeholder="Confirm Password" value={confirmPassword} onKeyDown={handleKeyDown} onChange={(e) => setConfirmPassword(e.target.value)}/>
 
                     <button type="button" className="py-3 px-4 inline-flex items-center justify-center w-[80%] gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-gray-800 text-white hover:bg-gray-900 disabled:opacity-50 disabled:pointer-events-none" onClick={() => handleRegister()}>
                         Register
@@ -128,7 +137,7 @@ export const RegisterForm = () => {
                 
                 <input type="email" className="py-3 px-4 block w-[80%] bg-slate-100 border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" placeholder="Email" value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)}/>
                 
-                <input type="password" className="py-3 px-4 block w-[80%] bg-slate-100 border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" placeholder="Password" value={loginPassword} onChange={(e) => setLoginPassword(e.target.value)}/>
+                <input type="password" className="py-3 px-4 block w-[80%] bg-slate-100 border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" placeholder="Password" value={loginPassword} onKeyDown={handleKeyDown} onChange={(e) => setLoginPassword(e.target.value)}/>
 
                 
 
