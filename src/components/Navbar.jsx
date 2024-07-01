@@ -25,7 +25,7 @@ const enterTop = {
 
 export const Navbar = () => {
     const { showRegister, setShowRegister } = useContext(ToggleComponent);
-    const { currentUser } = useContext(AuthContext);
+    const { currentUser, userData } = useContext(AuthContext);
     const [ showName, setShowName ] = useState(false);
     const [ showLogOut, setShowLogOut ] = useState(false);
 
@@ -39,9 +39,9 @@ export const Navbar = () => {
                         whileHover={{scale: 1.1}}
                         whileTap={{scale: 1}}
                         transition={{type:"spring", stiffness: 400, damping: 17}}
-                        
+                        className='bg-transparent z-10'
                     >
-                        <Link to='homepage' smooth={true} duration={500} className='flex flex-row items-center bg-transparent text-3xl'>
+                        <Link to='homepage' smooth={true} duration={500} className='flex flex-row items-center bg-transparent text-3xl p-3'>
                             <img src={logo} alt="sea-salon-logo" className='logo bg-transparent' draggable='false'/>
                             SEA Salon
                         </Link>
@@ -85,7 +85,7 @@ export const Navbar = () => {
                             onHoverStart={() => {setShowName(false)}}
                             onHoverEnd={() => {setShowName(true)}}
                             onClick={() => {
-                                (!currentUser) ? setShowRegister(!showRegister) : setShowLogOut(!showLogOut);
+                                (!currentUser) ? setShowRegister(!showRegister) : setShowLogOut(!showLogOut); console.log(userData);
                             }}
                         >
                             <FaUserCircle size={32}/>
@@ -102,15 +102,18 @@ export const Navbar = () => {
                                         duration: 0.3,
                                         staggerChildren: 0.1,
                                 }}}
-                                whileTap={{ scale:0.9 }}
-                                className='fixed bg-transparent z-[8] flex justify-center items-center pt-28'
+                                
+                                className='fixed bg-transparent z-[8] flex flex-col justify-center items-center pt-28'
                             >
-                                <button className='bg-transparent border-[2px] px-3 py-2 rounded-md' onClick={async() => {
+                                <p>{userData.name}</p>
+                                <motion.button className='bg-transparent border-[2px] px-3 py-2 rounded-md'
+                                whileTap={{ scale:0.9 }}
+                                onClick={async() => {
                                     await auth.signOut();
                                     setShowLogOut(false);
                                 }}>
                                     Sign Out
-                                </button>
+                                </motion.button>
                             </motion.div> 
                             : null}
                         </AnimatePresence>

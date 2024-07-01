@@ -6,14 +6,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.navbar {
-    font-family: "Red Hat Display", sans-serif;
-    background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%);
-    .logo{
-        max-width: 50px;
-    }
-}
-
 .unna-regular {
     font-family: "Unna", serif;
     font-weight: 400;

@@ -236,11 +236,11 @@ function App() {
                 animate={reviewIsInView && 'after'}
                 className='bg-transparent flex flex-row justify-center gap-8 pb-8'
               >
-                <button onClick={() => setStarReview(1)} onMouseEnter={() => setHighlight(1)} onMouseLeave={() => setHighlight(0) && setStarReview(0)}> <FaStar color={`${highlight > 0 || starReview > 0 ? 'black' : 'gray'}`} size={64}/> </button>
-                <button onClick={() => setStarReview(2)} onMouseEnter={() => setHighlight(2)} onMouseLeave={() => setHighlight(0) && setStarReview(0)}> <FaStar color={`${highlight > 1 || starReview > 1 ? 'black' : 'gray'}`} size={64}/> </button>
-                <button onClick={() => setStarReview(3)} onMouseEnter={() => setHighlight(3)} onMouseLeave={() => setHighlight(0) && setStarReview(0)}> <FaStar color={`${highlight > 2 || starReview > 2 ? 'black' : 'gray'}`} size={64}/> </button>
-                <button onClick={() => setStarReview(4)} onMouseEnter={() => setHighlight(4)} onMouseLeave={() => setHighlight(0) && setStarReview(0)}> <FaStar color={`${highlight > 3 || starReview > 3 ? 'black' : 'gray'}`} size={64}/> </button>
-                <button onClick={() => setStarReview(5)} onMouseEnter={() => setHighlight(5)} onMouseLeave={() => setHighlight(0) && setStarReview(0)}> <FaStar color={`${highlight > 4 || starReview > 4 ? 'black' : 'gray'}`} size={64}/> </button>
+                <button className='bg-transparent' onClick={() => setStarReview(1)} onMouseEnter={() => setHighlight(1)} onMouseLeave={() => setHighlight(0) && setStarReview(0)}> <FaStar color={`${highlight > 0 || starReview > 0 ? 'black' : 'gray'}`} size={64}/> </button>
+                <button className='bg-transparent' onClick={() => setStarReview(2)} onMouseEnter={() => setHighlight(2)} onMouseLeave={() => setHighlight(0) && setStarReview(0)}> <FaStar color={`${highlight > 1 || starReview > 1 ? 'black' : 'gray'}`} size={64}/> </button>
+                <button className='bg-transparent' onClick={() => setStarReview(3)} onMouseEnter={() => setHighlight(3)} onMouseLeave={() => setHighlight(0) && setStarReview(0)}> <FaStar color={`${highlight > 2 || starReview > 2 ? 'black' : 'gray'}`} size={64}/> </button>
+                <button className='bg-transparent' onClick={() => setStarReview(4)} onMouseEnter={() => setHighlight(4)} onMouseLeave={() => setHighlight(0) && setStarReview(0)}> <FaStar color={`${highlight > 3 || starReview > 3 ? 'black' : 'gray'}`} size={64}/> </button>
+                <button className='bg-transparent' onClick={() => setStarReview(5)} onMouseEnter={() => setHighlight(5)} onMouseLeave={() => setHighlight(0) && setStarReview(0)}> <FaStar color={`${highlight > 4 || starReview > 4 ? 'black' : 'gray'}`} size={64}/> </button>
               </motion.div>  
             </div>
 
@@ -253,7 +253,7 @@ function App() {
                 ref={reviewRef}
                 initial="before"
                 animate={reviewIsInView && "after"}
-                className='rounded-md min-w-[60vh] min-h-[20vh] p-3 border-[2px]' />
+                className='rounded-md min-w-[60vh] min-h-[20vh] max-h-[32vh] p-3 border-[2px]' />
               <motion.button
                 variants={enterBottom}
                 ref={reviewRef}
@@ -270,9 +270,9 @@ function App() {
             </div>
           </div>
         </section>
-        <section className='bg-black h-[24vh] w-full flex flex-row justify-center self-center'>
-          <div className='bg-transparent flex flex-col justify-center self-center gap-3 w-full'>
-            <div className='flex flex-row justify-center items-center bg-transparent w-full gap-12'>
+        <section className='bg-black h-[24vh] w-full flex flex-row justify-between self-center'>
+          <div className='bg-transparent flex flex-col justify-center self-center gap-3 w-full px-20'>
+            <div className='flex flex-row justify-between items-center bg-transparent w-full gap-12 space-x-10'>
               <div className=" bottom-logo flex justify-center items-center bg-transparent">
                 <motion.button
                     whileHover={{scale: 1}}
@@ -287,20 +287,23 @@ function App() {
                 </motion.button>
               </div>
 
-              <div className='bg-transparent flex flex-col justify-center self-center gap-2'>
-                <h3 className='bg-transparent text-2xl text-neutral-100'>Contacts</h3>
-                <p className='bg-transparent text-neutral-100'>Thomas - 08123456789</p>
-                <p className='bg-transparent text-neutral-100 '>Sekar - 08164829372</p>
+              <div className='bg-transparent flex flex-col justify-between self-center gap-2'>
+                <h3 className='bg-transparent text-2xl text-neutral-100 text-center'>Working Hours</h3>
+                <p className='bg-transparent text-neutral-100 text-center'>Monday - Friday: 9:00 AM - 8:00 PM</p>
+                <p className='bg-transparent text-neutral-100 text-center'>Saturday - Sunday: 10:00 AM - 6:00 PM</p>
+                <p className='bg-transparent text-gray-300'>&copy; 2024 SEA Salon. All rights reserved.</p>
               </div>
 
-              <div className='bg-transparent flex flex-col justify-center self-center gap-2'>
-                <h3 className='bg-transparent text-2xl text-neutral-100'>Working Hours</h3>
-                <p className='bg-transparent text-neutral-100'>Monday - Friday: 9:00 AM - 8:00 PM</p>
-                <p className='bg-transparent text-neutral-100'>Saturday - Sunday: 10:00 AM - 6:00 PM</p>
+              <div className='bg-transparent flex flex-col justify-between self-center gap-2'>
+                <h3 className='bg-transparent text-2xl text-neutral-100 text-center'>Contacts</h3>
+                <p className='bg-transparent text-neutral-100 text-center'>Thomas - 08123456789</p>
+                <p className='bg-transparent text-neutral-100  text-center'>Sekar - 08164829372</p>
               </div>
+
+              
             </div>
-            <div className='bg-transparent flex flex-row justify-center self-center'>
-              <p className='bg-transparent text-gray-300'>&copy; 2024 SEA Salon. All rights reserved.</p>
+            <div className='bg-transparent flex flex-row justify-between self-center'>
+              
             </div>
           </div>
         </section>
