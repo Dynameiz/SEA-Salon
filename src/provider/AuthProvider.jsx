@@ -22,6 +22,14 @@ export const AuthProvider = ({children}) => {
         }
     }
 
+    const checkAdmin = () => {
+        try {
+          return (userData.role === 'Admin');
+        } catch (error) {
+          return false;
+        }
+    }
+
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
             setCurrentUser(firebaseUser);
@@ -31,6 +39,6 @@ export const AuthProvider = ({children}) => {
           return unsubscribe;
     }, [])
 
-    return <AuthContext.Provider value={{ currentUser, userData, setUserData }}>{children}</AuthContext.Provider>
+    return <AuthContext.Provider value={{ currentUser, userData, setUserData, checkAdmin }}>{children}</AuthContext.Provider>
 
 }

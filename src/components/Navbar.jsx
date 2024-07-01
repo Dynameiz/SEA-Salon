@@ -29,8 +29,6 @@ export const Navbar = () => {
     const [ showName, setShowName ] = useState(false);
     const [ showLogOut, setShowLogOut ] = useState(false);
 
-
-
     return (
         <>
             <nav className='navbar flex items-center justify-between fixed w-full z-10 mr-4 ml-4 sele selection:bg-black selection:text-neutral-100 overflow-hidden'>
@@ -85,7 +83,7 @@ export const Navbar = () => {
                             onHoverStart={() => {setShowName(false)}}
                             onHoverEnd={() => {setShowName(true)}}
                             onClick={() => {
-                                (!currentUser) ? setShowRegister(!showRegister) : setShowLogOut(!showLogOut); console.log(userData);
+                                (!currentUser) ? setShowRegister(!showRegister) : setShowLogOut(!showLogOut)
                             }}
                         >
                             <FaUserCircle size={32}/>
