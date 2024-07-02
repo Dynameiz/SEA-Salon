@@ -1,11 +1,17 @@
 import { motion } from "framer-motion"
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { ToggleComponent } from "../context/ToggleComponent"
-import { FaXmark } from "react-icons/fa6"
+import { FaStar, FaXmark, FaArrowRotateRight } from "react-icons/fa6"
+import { AuthContext } from "../context/AuthContext"
 
 export const ViewReviews = () => {
 
   const {showAllReviews, setShowAllReviews} = useContext(ToggleComponent);
+  const {setLoading, reviewData, getReviewData} = useContext(AuthContext);
+
+  const loadReview = async() => {
+    getReviewData();
+  }
 
   return (
     <>
@@ -19,17 +25,43 @@ export const ViewReviews = () => {
           <div className="w-[70%] h-[80%] z-10 bg-white rounded-md divide-y-2 border-black items-center p-5">
             <div className="flex flex-row justify-between bg-transparent items-center px-2">
               <h1 className="bg-transparent text-2xl">Reviews</h1>
-              <motion.button
-                className="bg-transparent"
-                whileHover={{scale: 1.1}}
-                whileTap={{scale: 0.8}}
-                onClick={() => {setShowAllReviews(!showAllReviews)}}
-              >
-                <FaXmark className="bg-transparent" size={24}/>
-              </motion.button>
+              <div className="flex flex-row justify-center bg-transparent items-center gap-7">
+                <motion.button
+                  className="bg-transparent"
+                  whileHover={{scale: 1.1}}
+                  whileTap={{scale: 0.8, rotate:360}}
+                  onClick={() => {loadReview()}}
+                >
+                  <FaArrowRotateRight className="bg-transparent" size={24}/>
+                </motion.button>
+                <motion.button
+                  className="bg-transparent"
+                  whileHover={{scale: 1.1}}
+                  whileTap={{scale: 0.8}}
+                  onClick={() => {setShowAllReviews(!showAllReviews)}}
+                >
+                  <FaXmark className="bg-transparent" size={24}/>
+                </motion.button>
+              </div>
             </div>
-            <div className="flex flex-col bg-transparent px-2 pt-4">
-              Review list
+            <div className="flex flex-col bg-transparent px-2 pt-4 divide-y overflow-y-scroll overflow-hidden h-[95%]">
+              {reviewData.map((reviews, index) => {
+                return (
+                  <div key={index} className=" border-black bg-transparent">
+                    <div className="text-xl bg-transparent">{reviews.name}</div>
+                    <div className="flex bg-transparent">
+
+                      <FaStar color={reviews.rating > 0 ? '#ffbb00' : 'gray'} className="bg-transparent"/>
+                      <FaStar color={reviews.rating > 1 ? '#ffbb00' : 'gray'} className="bg-transparent"/>
+                      <FaStar color={reviews.rating > 2 ? '#ffbb00' : 'gray'} className="bg-transparent"/>
+                      <FaStar color={reviews.rating > 3 ? '#ffbb00' : 'gray'} className="bg-transparent"/>
+                      <FaStar color={reviews.rating > 4 ? '#ffbb00' : 'gray'} className="bg-transparent"/>
+        
+                    </div>
+                    <div className="bg-transparent pt-3">{reviews.comment}</div>
+                  </div>
+                )
+              })}
             </div>
           </div>
 

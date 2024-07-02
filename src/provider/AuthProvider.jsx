@@ -9,6 +9,7 @@ export const AuthProvider = ({children}) => {
     const [currentUser, setCurrentUser] = useState(null);
     //User Data
     const [userData, setUserData] = useState(null);
+    const [reviewData, setReviewData] = useState([]);
 
     const getUserData = async(email) => {
         try {
@@ -30,6 +31,18 @@ export const AuthProvider = ({children}) => {
         }
     }
 
+    const getReviewData = async () => {
+        try {
+          const getReviewDoc = await getDoc(doc(db, "user_input", "reviews"));
+          if (getReviewDoc.exists()) {
+            setReviewData(getReviewDoc.data().reviews);
+          }
+          console.log("No reviews yet");
+        } catch (error) {
+          console.error(error);
+        }
+      };
+
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
             setCurrentUser(firebaseUser);
@@ -39,6 +52,6 @@ export const AuthProvider = ({children}) => {
           return unsubscribe;
     }, [])
 
-    return <AuthContext.Provider value={{ currentUser, userData, setUserData, checkAdmin }}>{children}</AuthContext.Provider>
+    return <AuthContext.Provider value={{ currentUser, userData, setUserData, checkAdmin,reviewData, getReviewData,  setReviewData }}>{children}</AuthContext.Provider>
 
 }

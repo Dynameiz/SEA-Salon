@@ -8,6 +8,9 @@ Welcome to SEA Salon's official website! Discover our range of services designed
 
 <hr>
 
+You can check out this website yourself by clicking the link below:
+<a href="https://dynameiz.github.io/SEA-Salon/">Click me!</a>
+
 ## Prerequisites
 In order to play around with this website by yourself, you could follow these steps:
 
