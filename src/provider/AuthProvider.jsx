@@ -11,6 +11,7 @@ export const AuthProvider = ({children}) => {
     const [userData, setUserData] = useState(null);
     const [reviewData, setReviewData] = useState([]);
     const [reservationData, setReservationData] = useState([]);
+    const [branchData, setBranchData] = useState([]);
 
     const checkAdmin = () => {
         try {
@@ -65,6 +66,6 @@ export const AuthProvider = ({children}) => {
           return unsubscribe;
     }, [])
 
-    return <AuthContext.Provider value={{ currentUser, userData, setUserData, checkAdmin,reviewData, getReviewData,  setReviewData, reservationData, setReservationData, getReservationData }}>{children}</AuthContext.Provider>
+    return <AuthContext.Provider value={{ currentUser, userData, setUserData, checkAdmin,reviewData, getReviewData, setReviewData, reservationData, setReservationData, getReservationData, branchData, setBranchData }}>{children}</AuthContext.Provider>
 
 }

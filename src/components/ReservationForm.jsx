@@ -1,14 +1,17 @@
 import { motion } from "framer-motion";
 import { useContext, useState } from "react";
 import { ToggleComponent } from "../context/ToggleComponent";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase_sdk";
+import { AuthContext } from "../context/AuthContext";
 
 export const ReservationForm = () => {
   const { showReservation, setShowReservation, setLoading } = useContext(ToggleComponent);
+  const { branchData } = useContext(AuthContext);
 
   const [ name, setName ] = useState('');
   const [ phoneNumber, setPhoneNumber ] = useState('');
+  const [ branch, setBranch ] = useState('Select a Branch');
   const [ service, setService ] = useState('Services');
   const [ date, setDate ] = useState('');
 
@@ -20,6 +23,8 @@ export const ReservationForm = () => {
     saveReservations();
     setShowReservation(!showReservation);
   }
+
+  
 
   const getPrevReservations = async() =>{
     try {
@@ -46,6 +51,7 @@ export const ReservationForm = () => {
               {
                 name: name,
                 phoneNumber: phoneNumber,
+                branch: branch,
                 service: service,
                 date: date
               }
@@ -58,6 +64,7 @@ export const ReservationForm = () => {
             reservations : [{
               name: name,
               phoneNumber: phoneNumber,
+              branch: branch,
               service: service,
               date: date
             }]
@@ -88,6 +95,15 @@ export const ReservationForm = () => {
 
                   <input type="text" class="py-3 px-4 block w-[80%] bg-slate-100 border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" placeholder="Name" value={name} onChange={(e) => {setName(e.target.value)}}/>
                   <input type="text" class="py-3 px-4 block w-[80%] bg-slate-100 border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" placeholder="Phone Number" value={phoneNumber} onChange={(e) => {setPhoneNumber(e.target.value)}}/>
+
+                  <select class="py-3 px-4 pe-9 block w-[80%] bg-slate-100 border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" value={branch} onChange={(e) => {setBranch(e.target.value)}}>
+                    <option selected='Select a Branch' disabled="true">Select a Branch</option>
+                    {branchData.map((branches, index) => {
+                      return (
+                        <option key={index} value={index}>{branches.branchName}</option>
+                      )
+                    })}
+                  </select>
 
                   <select class="py-3 px-4 pe-9 block w-[80%] bg-slate-100 border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" value={service} onChange={(e) => {setService(e.target.value)}}>
                     <option selected="Services" disabled="true">Services</option>

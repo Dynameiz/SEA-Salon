@@ -65,7 +65,7 @@ const enterBottom = {
 export const CustomerPage = () => {
 
     const { showReservation, setShowReservation, setShowRegister, showRegister, showLogin, loading, setLoading } = useContext(ToggleComponent);
-    const { currentUser, userData } = useContext(AuthContext);
+    const { currentUser, userData, branchData, setBranchData } = useContext(AuthContext);
   
     const [highlight, setHighlight] = useState(0);
     const [starReview, setStarReview] = useState(0);
@@ -76,6 +76,20 @@ export const CustomerPage = () => {
   
     const reviewRef = useRef();
     const reviewIsInView = useInView(reviewRef, {margin:'0px'});
+
+    const getBranchData = async() =>{
+      try {
+        const getBranchDocs = await getDoc(doc(db, 'data', 'branches'));
+        if(getBranchDocs.exists()){
+          return getBranchDocs.data();
+        }
+        console.log('No branch');
+        return null;
+      } catch (error) {
+        console.log(error);
+        return null;
+      }
+    }
   
     const handleSubmit = () => {
       if(starReview < 1 && comment === ''){
@@ -198,7 +212,7 @@ export const CustomerPage = () => {
                 <motion.button
                   whileTap={{scale: 0.9}}
                   onClick={() => {
-                    (!currentUser) ? setShowRegister(true) : setShowReservation(!showReservation);
+                    {(!currentUser) ? setShowRegister(true) : setShowReservation(!showReservation);}
                   }}
                   className='btn text-black p-2 text-2xl rounded-lg'
                 >

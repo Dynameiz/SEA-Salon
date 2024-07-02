@@ -1,7 +1,7 @@
 import { motion } from "framer-motion"
 import { useContext } from "react"
 import { ToggleComponent } from "../context/ToggleComponent"
-import { FaXmark } from "react-icons/fa6"
+import { FaXmark, FaScrewdriverWrench } from "react-icons/fa6"
 
 export const AddServices = () => {
 
@@ -28,8 +28,11 @@ export const AddServices = () => {
                 <FaXmark className="bg-transparent" size={24}/>
               </motion.button>
             </div>
-            <div className="flex flex-col bg-transparent px-2 pt-4">
-              Service Form
+            <div className="flex flex-col bg-transparent px-2 pt-4 items-center h-full justify-center">
+              <div className="flex flex-col bg-transparent px-4 items-center gap-16 justify-center">
+                <FaScrewdriverWrench size={240} className="bg-transparent"/>
+                <h1 className="text-4xl bg-transparent">This Feature is under Construction</h1>
+              </div>
             </div>
           </div>
         <div className="w-full h-[100vh] fixed z-[5] bg-transparent" onClick={() => setShowAddServices(!showAddServices)}>
