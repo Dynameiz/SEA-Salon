@@ -7,14 +7,15 @@ import { RegisterForm } from '../components/RegisterForm';
 import { ReservationForm } from '../components/ReservationForm';
 import { ToggleComponent } from '../context/ToggleComponent';
 import { AuthContext } from '../context/AuthContext';
+import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
+import { db } from '../firebase_sdk';
+import { PropagateLoader } from 'react-spinners';
 
 import model_photo from '../../public/model.png';
 import logo_white from '../../public/sea_salon_logo_white.svg';
 import haircut_img from '../../public/styling.jpeg';
 import maincure_img from '../../public/manicure_n_pedicure.jpeg';
 import facial_img from '../../public/facial_treatment.jpeg';
-import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
-import { db } from '../firebase_sdk';
 
 const enterBottom = {
     before: {
@@ -63,7 +64,7 @@ const enterBottom = {
 
 export const CustomerPage = () => {
 
-    const { showReservation, setShowReservation, setShowRegister, showRegister, showLogin } = useContext(ToggleComponent);
+    const { showReservation, setShowReservation, setShowRegister, showRegister, showLogin, loading, setLoading } = useContext(ToggleComponent);
     const { currentUser, userData } = useContext(AuthContext);
   
     const [highlight, setHighlight] = useState(0);
@@ -110,6 +111,7 @@ export const CustomerPage = () => {
     }
 
     const saveReviews = async() => {
+      setLoading(true);
       try {
           const prevReviews = await getPrevReviews();
           console.log(prevReviews);
@@ -134,15 +136,34 @@ export const CustomerPage = () => {
               }]
             })
           }
-
       } catch (error) {
           console.log(error);
+      } finally {
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
       }
   }
 
   return (
     <>
       <Navbar/>
+      <AnimatePresence>{ 
+        loading ?
+        <motion.div
+          className='fixed z-20 flex items-center justify-center bg-black bg-opacity-25 w-full min-h-screen'
+          animate={{
+            transition:{
+              duration: 0.5,
+              type: 'spring'
+            }
+          }}
+        >
+          <PropagateLoader loading={loading} color='black'/>
+        </motion.div>
+        :
+        null
+      }</AnimatePresence>
       <AnimatePresence>{showReservation? <ReservationForm/> : null}</AnimatePresence>
       <AnimatePresence>{showRegister || showLogin? <RegisterForm/> : null}</AnimatePresence>
       

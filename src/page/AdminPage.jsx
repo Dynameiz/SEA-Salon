@@ -2,23 +2,22 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Element } from "react-scroll";
 import { AdminNavbar } from "../components/AdminNavbar";
 import { FaStar, FaRegNoteSticky, FaLocationDot, FaScissors } from "react-icons/fa6";
-import { useState } from "react";
+import { useContext } from "react";
 import { AddBranches } from "../components/AddBranches";
 import { AddServices } from "../components/AddServices";
 import { ViewReviews } from "../components/ViewReviews";
 import { ViewReservations } from "../components/ViewReservations";
+import { ToggleComponent } from "../context/ToggleComponent";
 
 export const AdminPage = () => {
 
-  const [showAddBranches, setShowAddBranches] = useState(false);
-  const [showAddServices, setShowAddServices] = useState(false);
-  const [showAllReviews, setShowAllReviews] = useState(false);
-  const [showAllReservations, setShowAllReservations] = useState(false);
+  const { showAddBranches, setShowAddBranches, showAddServices, setShowAddServices, showAllReviews, setShowAllReviews, showAllReservations, setShowAllReservations } = useContext(ToggleComponent);
+
+
 
   return (
     <>
       <AdminNavbar />
-
 
       <Element
         name="admin-page"
@@ -32,7 +31,7 @@ export const AdminPage = () => {
           <div className="flex flex-row justify-center w-full items-center gap-4">
             <div className="flex flex-col items-center justify-center gap-4 p-3">
               <motion.button
-                className="flex flex-col items-center justify-center gap-4 p-3 border-[2px] rounded-md w-[35vh] h-[25vh]"
+                className="flex flex-col items-center justify-center gap-4 p-3 border-[2px] rounded-md w-[35vh] h-[25vh] bg-[#f8f8f8]"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 1 }}
                 onClick={() => {
@@ -45,7 +44,7 @@ export const AdminPage = () => {
             </div>
             <div className="flex flex-col items-center justify-center gap-4 p-3">
               <motion.button
-                className="flex flex-col items-center justify-center gap-4 p-3 border-[2px] rounded-md w-[35vh] h-[25vh]"
+                className="flex flex-col items-center justify-center gap-4 p-3 border-[2px] rounded-md w-[35vh] h-[25vh] bg-[#f8f8f8]"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 1 }}
                 onClick={() => {
@@ -60,7 +59,7 @@ export const AdminPage = () => {
           <div className="flex flex-row justify-center w-full items-center gap-4">
             <div className="flex flex-col items-center justify-center gap-4 p-3">
               <motion.button
-                className="flex flex-col items-center justify-center gap-4 p-3 border-[2px] rounded-md w-[35vh] h-[25vh]"
+                className="flex flex-col items-center justify-center gap-4 p-3 border-[2px] rounded-md w-[35vh] h-[25vh] bg-[#f8f8f8]"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 1 }}
                 onClick={() => {
@@ -73,7 +72,7 @@ export const AdminPage = () => {
             </div>
             <div className="flex flex-col items-center justify-center gap-4 p-3">
               <motion.button
-                className="flex flex-col items-center justify-center gap-4 p-3 border-[2px] rounded-md w-[35vh] h-[25vh]"
+                className="flex flex-col items-center justify-center gap-4 p-3 border-[2px] rounded-md w-[35vh] h-[25vh] bg-[#f8f8f8]"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 1 }}
                 onClick={() => {

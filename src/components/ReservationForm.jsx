@@ -1,9 +1,11 @@
 import { motion } from "framer-motion";
 import { useContext, useState } from "react";
 import { ToggleComponent } from "../context/ToggleComponent";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { db } from "../firebase_sdk";
 
 export const ReservationForm = () => {
-  const { showReservation, setShowReservation } = useContext(ToggleComponent);
+  const { showReservation, setShowReservation, setLoading } = useContext(ToggleComponent);
 
   const [ name, setName ] = useState('');
   const [ phoneNumber, setPhoneNumber ] = useState('');
@@ -15,7 +17,59 @@ export const ReservationForm = () => {
       alert('Please fill out all of the field');
       return;
     }
+    saveReservations();
     setShowReservation(!showReservation);
+  }
+
+  const getPrevReservations = async() =>{
+    try {
+      const getReservationDocs = await getDoc(doc(db, 'user_input', 'reservations'));
+      if(getReservationDocs.exists()){
+        return getReservationDocs.data();
+      }
+      console.log('No Reservation Has Been Made Yet');
+      return null;
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+
+  const saveReservations = async() => {
+    setLoading(true);
+    try {
+        const prevReservations = await getPrevReservations();
+        console.log(prevReservations);
+        if(prevReservations){
+          const newReservation = { reservations:[
+              ...prevReservations.reservations,
+              {
+                name: name,
+                phoneNumber: phoneNumber,
+                service: service,
+                date: date
+              }
+            ]
+          };
+          await updateDoc(doc(db, 'user_input', 'reservations'), {reservations: newReservation.reservations});
+        }
+        else{
+          await setDoc(doc(db, 'user_input', 'reservations'), {
+            reservations : [{
+              name: name,
+              phoneNumber: phoneNumber,
+              service: service,
+              date: date
+            }]
+          })
+        }
+    } catch (error) {
+        console.log(error);
+    } finally {
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+    }
   }
 
   return (

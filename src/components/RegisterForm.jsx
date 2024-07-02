@@ -8,7 +8,7 @@ import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 
 export const RegisterForm = () => {
-    const { showRegister, setShowRegister, showLogin, setShowLogin } = useContext(ToggleComponent);
+    const { showRegister, setShowRegister, showLogin, setShowLogin, setLoading } = useContext(ToggleComponent);
 
     const { setUserData } = useContext(AuthContext);
 
@@ -64,11 +64,16 @@ export const RegisterForm = () => {
             alert('Password did not match');
             return;
         }
+        setLoading(true);
         try {
             await createUserWithEmailAndPassword(auth, email, password);
             await saveUserData();
         } catch (error) {
             console.log(error);
+        } finally {
+            setTimeout(() => {
+                setLoading(false);
+            }, 1000);
         }
     }
 
@@ -77,6 +82,7 @@ export const RegisterForm = () => {
             alert('Please fill in all of the fields');
             return;
         }
+        setLoading(true);
         try {
             await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
             const tempData = getUserData();
@@ -86,6 +92,10 @@ export const RegisterForm = () => {
         } catch (error) {
             alert('Unknown Error Occured');
             console.log(error);
+        } finally {
+            setTimeout(() => {
+                setLoading(false);
+            }, 1000);
         }
     } 
 
