@@ -91,11 +91,11 @@ export const ReservationForm = () => {
 
                   <select class="py-3 px-4 pe-9 block w-[80%] bg-slate-100 border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" value={service} onChange={(e) => {setService(e.target.value)}}>
                     <option selected="Services" disabled="true">Services</option>
-                    <option value="haircut">Haircut</option>
-                    <option value="styling">Styling</option>
-                    <option value="manicure">Manicure</option>
-                    <option value="pedicure">Pedicure</option>
-                    <option value="face">Face Treatments</option>
+                    <option value="Haircut">Haircut</option>
+                    <option value="Styling">Styling</option>
+                    <option value="Manicure">Manicure</option>
+                    <option value="Pedicure">Pedicure</option>
+                    <option value="Face Treatments">Face Treatments</option>
                   </select>
 
                   <input type="datetime-local" className="py-3 px-4 pe-9 block w-[80%] bg-slate-100 border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" value={date} onChange={(e) => {setDate(e.target.value)}}/>

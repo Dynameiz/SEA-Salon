@@ -9,11 +9,12 @@ import { ViewReviews } from "../components/ViewReviews";
 import { ViewReservations } from "../components/ViewReservations";
 import { ToggleComponent } from "../context/ToggleComponent";
 import { AuthContext } from "../context/AuthContext";
+import { PropagateLoader } from "react-spinners";
 
 export const AdminPage = () => {
 
-  const { showAddBranches, setShowAddBranches, showAddServices, setShowAddServices, showAllReviews, setShowAllReviews, showAllReservations, setShowAllReservations } = useContext(ToggleComponent);
-  const { getReviewData } = useContext(AuthContext);
+  const { showAddBranches, setShowAddBranches, showAddServices, setShowAddServices, showAllReviews, setShowAllReviews, showAllReservations, setShowAllReservations, loading } = useContext(ToggleComponent);
+  const { getReviewData, getReservationData } = useContext(AuthContext);
 
   const [branchLogoHover, setBranchLogoHover] = useState(false);
   const [serviceLogoHover, setServiceLogoHover] = useState(false);
@@ -23,7 +24,22 @@ export const AdminPage = () => {
   return (
     <>
       <AdminNavbar />
-
+      <AnimatePresence>{ 
+        loading ?
+        <motion.div
+          className='fixed z-30 flex items-center justify-center bg-black bg-opacity-25 w-full min-h-screen'
+          animate={{
+            transition:{
+              duration: 0.5,
+              type: 'spring'
+            }
+          }}
+        >
+          <PropagateLoader loading={loading} color='black'/>
+        </motion.div>
+        :
+        null
+      }</AnimatePresence>
       <Element
         name="admin-page"
         className="w-full h-[100vh] justify-center items-center poppins-regular"
@@ -90,6 +106,7 @@ export const AdminPage = () => {
                 onMouseEnter={() => setReservationsLogoHover(!reservationsLogoHover)}
                 onMouseLeave={() => setReservationsLogoHover(!reservationsLogoHover)}
                 onClick={() => {
+                  getReservationData();
                   setShowAllReservations(!showAllReservations);
                 }}
               >

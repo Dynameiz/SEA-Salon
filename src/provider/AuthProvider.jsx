@@ -10,6 +10,15 @@ export const AuthProvider = ({children}) => {
     //User Data
     const [userData, setUserData] = useState(null);
     const [reviewData, setReviewData] = useState([]);
+    const [reservationData, setReservationData] = useState([]);
+
+    const checkAdmin = () => {
+        try {
+          return (userData.role === 'Admin');
+        } catch (error) {
+          return false;
+        }
+    }
 
     const getUserData = async(email) => {
         try {
@@ -23,14 +32,6 @@ export const AuthProvider = ({children}) => {
         }
     }
 
-    const checkAdmin = () => {
-        try {
-          return (userData.role === 'Admin');
-        } catch (error) {
-          return false;
-        }
-    }
-
     const getReviewData = async () => {
         try {
           const getReviewDoc = await getDoc(doc(db, "user_input", "reviews"));
@@ -41,7 +42,19 @@ export const AuthProvider = ({children}) => {
         } catch (error) {
           console.error(error);
         }
-      };
+    };
+
+    const getReservationData = async () => {
+        try {
+          const getReservationDoc = await getDoc(doc(db, "user_input", "reservations"));
+          if (getReservationDoc.exists()) {
+            setReservationData(getReservationDoc.data().reservations);
+          }
+          console.log("No reservation has been made yet");
+        } catch (error) {
+          console.error(error);
+        }
+    };
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
@@ -52,6 +65,6 @@ export const AuthProvider = ({children}) => {
           return unsubscribe;
     }, [])
 
-    return <AuthContext.Provider value={{ currentUser, userData, setUserData, checkAdmin,reviewData, getReviewData,  setReviewData }}>{children}</AuthContext.Provider>
+    return <AuthContext.Provider value={{ currentUser, userData, setUserData, checkAdmin,reviewData, getReviewData,  setReviewData, reservationData, setReservationData, getReservationData }}>{children}</AuthContext.Provider>
 
 }

@@ -1,16 +1,20 @@
 import { motion } from "framer-motion"
-import { useContext, useState } from "react"
+import { useContext } from "react"
 import { ToggleComponent } from "../context/ToggleComponent"
 import { FaStar, FaXmark, FaArrowRotateRight } from "react-icons/fa6"
 import { AuthContext } from "../context/AuthContext"
 
 export const ViewReviews = () => {
 
-  const {showAllReviews, setShowAllReviews} = useContext(ToggleComponent);
-  const {setLoading, reviewData, getReviewData} = useContext(AuthContext);
+  const {showAllReviews, setShowAllReviews, setLoading} = useContext(ToggleComponent);
+  const {reviewData, getReviewData} = useContext(AuthContext);
 
   const loadReview = async() => {
-    getReviewData();
+    setLoading(true);
+    setTimeout(() => {
+      getReviewData();
+      setLoading(false);
+    }, 1000);
   }
 
   return (
